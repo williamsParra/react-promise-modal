@@ -12,7 +12,27 @@ function App() {
   const [modal, setModal] = useState(false);
   const [active, setActive] = useState(true);
   const [data, setData] = useState({checkModal:false ,name:"nukero"})
-  const [promiseModalStatus,setPromiseModalStatus] = useState(null);
+
+  const createPromise = ()=>{
+    return new Promise((resolve,reject) =>{
+        setPromiseInfo({resolve,reject})
+    })
+};
+
+  const [promiseInfo, setPromiseInfo] = useState({});
+  const [promise,setPromise] = useState({})
+
+  useEffect(()=>{
+    console.log("promise",promise)
+    //ver el estado actual de la promesa
+    if(promise.value){
+        console.log(promise.value)
+        //ejecutar el washer con el valor (true o el false)
+        //o usar referencia para ver el estado de la promise
+        
+
+    }
+},[promise])
 
   const wassher = async(value)=>{
     console.log(value)
@@ -26,8 +46,18 @@ function App() {
   },[awaitingPromiseRef])
 
   const toggle = () => {
+    if(modal){
+      promiseInfo.resolve(false);
+      console.log("cerrar",promise)
+    }
+
     setModal(!modal);
   };
+
+  const successPromice = ()=>{
+    promiseInfo.resolve(true);
+    console.log(promise);
+  }
 
   useEffect(()=>{
     setData({...data,checkModal:modal})
@@ -42,7 +72,7 @@ function App() {
           Open Modal
         </Button>
         <Info/>
-        <PromiseModal isOpen={modal} handleOpen={toggle} washer={wassher} title="Test" type="create"/>
+        <PromiseModal isOpen={modal} handleOpen={toggle} washer={wassher} title="Test" type="create" isOpened={async()=>setPromise(createPromise())} successPromice={successPromice}/>
       </div>
       </CustomContextProvider>
   )
