@@ -16,6 +16,14 @@ export default function PromiseModal(props)
 
     useEffect(()=>{
         console.log("promise",promise)
+        //ver el estado actual de la promesa
+        if(promise.value){
+            console.log(promise.value)
+            //ejecutar el washer con el valor (true o el false)
+            //o usar referencia para ver el estado de la promise
+            
+
+        }
     },[promise])
 
     const createPromise = ()=>{

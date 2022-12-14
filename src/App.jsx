@@ -12,6 +12,12 @@ function App() {
   const [modal, setModal] = useState(false);
   const [active, setActive] = useState(true);
   const [data, setData] = useState({checkModal:false ,name:"nukero"})
+  const [promiseModalStatus,setPromiseModalStatus] = useState(null);
+
+  const wassher = async(value)=>{
+    console.log(value)
+    return await value;
+  }
 
   const awaitingPromiseRef = useRef(null);
 
@@ -36,7 +42,7 @@ function App() {
           Open Modal
         </Button>
         <Info/>
-        <PromiseModal isOpen={modal} handleOpen={toggle} title="Test" type="create"/>
+        <PromiseModal isOpen={modal} handleOpen={toggle} washer={wassher} title="Test" type="create"/>
       </div>
       </CustomContextProvider>
   )
