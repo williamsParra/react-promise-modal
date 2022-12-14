@@ -51,7 +51,7 @@ export default function PromiseModal(props)
                 {/* Footer */}
                 <ModalFooter>
                     {
-                        props.type === 'create' && <button type="button" className="btn btn-primary form-btn-save" onClick={(props.onClickSave) ? props.onClickSave : null}>Guardar</button>
+                        props.type === 'create' && <button type="button" className="btn btn-primary form-btn-save" onClick={()=>{promiseInfo.resolve(true), console.log(promise);  props.handleOpen(); }}>Guardar</button>
                     }
                     <button type="button" className="btn btn-secondary form-btn-close" onClick={()=>{
                             promiseInfo.resolve(false);
