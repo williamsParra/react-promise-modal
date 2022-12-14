@@ -15,10 +15,10 @@ export default function PromiseModal(props)
     const [promise,setPromise] = useState({})
 
     useEffect(()=>{
-        console.log("promise",promiseInfo)
-    },[promiseInfo])
+        console.log("promise",promise)
+    },[promise])
 
-    const createPromise = async()=>{
+    const createPromise = ()=>{
         return new Promise((resolve,reject) =>{
             setPromiseInfo({resolve,reject})
         })
@@ -28,7 +28,7 @@ export default function PromiseModal(props)
     const showHashtag = props.showHashtag !== undefined ? props.showHashtag : true;
     const createModal = props.type === 'create' ? true: false;
     return (
-        <ReactstrapModal isOpen={show} className={props.size != undefined ? 'modal-' + props.size : 'modal-lg'} onOpened={()=>setPromise(createPromise)}>
+        <ReactstrapModal isOpen={show} className={props.size != undefined ? 'modal-' + props.size : 'modal-lg'} onOpened={async()=>setPromise(createPromise())}>
                 {/* Header */}
                 <div className="modal-header">
                     <h5 className="modal-title">{(!props.data) ? (
@@ -53,7 +53,11 @@ export default function PromiseModal(props)
                     {
                         props.type === 'create' && <button type="button" className="btn btn-primary form-btn-save" onClick={(props.onClickSave) ? props.onClickSave : null}>Guardar</button>
                     }
-                    <button type="button" className="btn btn-secondary form-btn-close" onClick={()=>{props.handleOpen(); promiseInfo.reject()}}>Cerrar</button>
+                    <button type="button" className="btn btn-secondary form-btn-close" onClick={()=>{
+                            promiseInfo.resolve(false);
+                            console.log("cerrar",promise)
+                            props.handleOpen();
+                        }}>Cerrar</button>
                 </ModalFooter>
         </ReactstrapModal>
     );
