@@ -1,26 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {useCustomContext} from '../hooks/CustomContext';
 import '../switch.css'
 
 const Swtich = (props) => {
     const [isChecked,setIsChecked] = useState(props.isChecked || false);
-    const contexto = useCustomContext();
 
     useEffect(()=>{
         setIsChecked(props.isChecked)
     },[props.isChecked])
 
-    useEffect(()=>{
-        
-        if(contexto && contexto.currentData){
-
-            setIsChecked(contexto.currentData.checkModal)
-        }
-    },[contexto])
-
     const handleChange = (e) => {
-
-        contexto.handleChange({pais:"chile"})
         setIsChecked(e.target.checked );
     }
 
