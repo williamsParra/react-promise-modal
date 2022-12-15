@@ -2,33 +2,28 @@ import React ,{ useState, useEffect, useRef } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AlertModal from './components/AlertModal';
-import Info from './components/Info';
 import { Button } from 'reactstrap';
 
 
 function App() {
 
   const [openModal,SetOpenModal] = useState(false);
-  const [modalStatus,setModalStatus] = useState({});
+
+  const modalRef = useRef();
 
   useEffect(()=>{
     setTimeout(async()=>{
       console.log("antes")
       handleOpen();
-      
-      await modalStatus;
+      let response = await modalRef.current.handleProcessPromise();
       console.log("despues")
+      console.log("response time out",response)
     },5000)
   },[]);
-
-  useEffect(()=>{
-    console.log("modal status",modalStatus)
-  },[modalStatus])
 
   const handleOpen = ()=>{
     SetOpenModal(!openModal);
   }
-
 
   return (
       <div className="App">
@@ -36,7 +31,7 @@ function App() {
         <Button color="danger" onClick={handleOpen}>
           Open Modal
         </Button>
-        <AlertModal type="create" title="Test"  modalStatus={modalStatus} setModalStatus={setModalStatus} isOpen={openModal} handleOpen={handleOpen} onClickSave={()=>{console.log("guardado")}}/>
+        <AlertModal ref={modalRef} type="create" title="Test" isOpen={openModal} handleOpen={handleOpen} onClickSave={()=>{console.log("guardado")}}/>
       </div>
   )
 }
